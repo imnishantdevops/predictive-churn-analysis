@@ -38,21 +38,6 @@ API Framework	FastAPI
 Containerization	Docker
 Orchestration	Kubernetes CronJob
 Storage / Logs	JSON, CSV, Prefect Logs
-📁 Project Structure
-📦 predictive-churn-analysis
- ┣ 📂 data/                  # Dataset (customer_churn.csv)
- ┣ 📂 src/
- ┃ ┣ 📜 data_pipeline.py     # Prefect-based data flow (EDA, preprocessing)
- ┃ ┣ 📜 ml_pipeline.py       # Model training and evaluation
- ┃ ┣ 📜 complete_pipeline.py # Combined flow (Data + ML)
- ┃ ┣ 📜 api_client.py        # FastAPI mock API
- ┃ ┣ 📜 verify_project.py    # Verification and validation script
- ┃ ┗ 📂 plots/               # Model metrics, confusion matrices, logs
- ┣ 📜 Dockerfile             # Container configuration
- ┣ 📜 churn-cronjob.yaml     # Kubernetes CronJob manifest
- ┣ 📜 requirements.txt       # Python dependencies
- ┣ 📜 README.md              # Project documentation
- ┗ 📜 entrypoint.sh          # Container entry script
 
 Model Performance
 Model	Accuracy	Precision	Recall	F1 Score
