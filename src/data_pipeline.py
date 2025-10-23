@@ -1,13 +1,9 @@
-# ============================================================
 # src/data_pipeline.py
 # Customer Churn Prediction - Data Pipeline (Fully Offline Mode)
 # Works without any Prefect server, cloud, or event system.
-# ============================================================
-
 import os
 import sys
 import types
-
 # ------------------- Disable Prefect Network Calls -------------------
 os.environ["PREFECT_API_URL"] = ""
 os.environ["PREFECT_API_ENABLE"] = "false"
@@ -50,15 +46,15 @@ def load_data():
     """Load the Telco Customer Churn dataset"""
     logger = get_run_logger()
     try:
-        # ✅ Use environment variable if available (Docker-safe)
+        # Use environment variable if available (Docker-safe)
         data_path = os.getenv("DATA_PATH", "data/customer_churn.csv")
         if not os.path.exists(data_path):
             raise FileNotFoundError(f"Dataset not found at {data_path}")
         df = pd.read_csv(data_path)
-        logger.info(f"✅ Data loaded successfully from: {data_path} | Shape: {df.shape}")
+        logger.info(f"Data loaded successfully from: {data_path} | Shape: {df.shape}")
         return df
     except Exception as e:
-        logger.error(f"❌ Error loading data: {e}")
+        logger.error(f"Error loading data: {e}")
         raise
 
 
@@ -67,7 +63,7 @@ def load_data():
 def preprocess_data(df):
     """Clean and preprocess the dataset"""
     logger = get_run_logger()
-    logger.info("🧹 Starting preprocessing...")
+    logger.info("Starting preprocessing...")
 
     df.columns = df.columns.str.strip()
 
@@ -75,7 +71,7 @@ def preprocess_data(df):
     df["TotalCharges"] = pd.to_numeric(df["TotalCharges"], errors="coerce")
     missing_total = df["TotalCharges"].isnull().sum()
     if missing_total > 0:
-        logger.info(f"⚠️ Found {missing_total} missing TotalCharges values. Filling with median.")
+        logger.info(f"Found {missing_total} missing TotalCharges values. Filling with median.")
         df["TotalCharges"].fillna(df["TotalCharges"].median(), inplace=True)
 
     # Encode categorical variables
@@ -84,16 +80,16 @@ def preprocess_data(df):
     for col in cat_cols:
         try:
             df[col] = le.fit_transform(df[col].astype(str))
-            logger.info(f"🔠 Encoded column: {col}")
+            logger.info(f"Encoded column: {col}")
         except Exception as e:
-            logger.warning(f"⚠️ Could not encode {col}: {e}")
+            logger.warning(f"Could not encode {col}: {e}")
 
     # Scale numeric features
     num_cols = ["tenure", "MonthlyCharges", "TotalCharges"]
     scaler = StandardScaler()
     df[num_cols] = scaler.fit_transform(df[num_cols])
 
-    logger.info("✅ Preprocessing completed successfully.")
+    logger.info("Preprocessing completed successfully.")
     logger.info(f"Data shape after preprocessing: {df.shape}")
     return df
 
@@ -104,7 +100,7 @@ def perform_eda(df):
     """Perform exploratory data analysis"""
     logger = get_run_logger()
     os.makedirs("plots", exist_ok=True)
-    logger.info("📊 Starting EDA...")
+    logger.info("Starting EDA...")
 
     plt.figure(figsize=(10, 8))
     corr = df.corr()
@@ -130,12 +126,12 @@ def perform_eda(df):
         plt.close()
 
         churn_corr = corr["Churn"].abs().sort_values(ascending=False)
-        logger.info(f"📈 Top correlated features with Churn:\n{churn_corr.head(10)}")
+        logger.info(f"Top correlated features with Churn:\n{churn_corr.head(10)}")
     else:
-        logger.warning("⚠️ 'Churn' column not found, skipping correlation ranking.")
+        logger.warning("'Churn' column not found, skipping correlation ranking.")
         churn_corr = pd.Series(dtype=float)
 
-    logger.info("✅ EDA completed successfully. Plots saved in 'plots' directory.")
+    logger.info("EDA completed successfully. Plots saved in 'plots' directory.")
     return churn_corr
 
 
@@ -144,13 +140,13 @@ def perform_eda(df):
 def data_pipeline_flow():
     """Main data pipeline for Customer Churn Prediction"""
     logger = get_run_logger()
-    logger.info("🚀 Starting Customer Churn Data Pipeline...")
+    logger.info("Starting Customer Churn Data Pipeline...")
 
     df = load_data()
     processed_df = preprocess_data(df)
     feature_importance = perform_eda(processed_df)
 
-    logger.info("🎉 Data Pipeline executed successfully!")
+    logger.info("Data Pipeline executed successfully!")
     return processed_df, feature_importance
 
 
