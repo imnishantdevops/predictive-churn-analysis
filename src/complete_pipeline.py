@@ -1,9 +1,6 @@
-# ============================================================
 # src/complete_pipeline.py
 # Complete Customer Churn Prediction Pipeline (Fully Offline)
 # Combines data_pipeline + ml_pipeline with Prefect stubs
-# ============================================================
-
 import os
 import sys
 import types
@@ -49,37 +46,29 @@ from src.ml_pipeline import ml_pipeline_flow
 def complete_pipeline():
     """Complete pipeline combining data and ML steps"""
     logger = get_run_logger()
-    logger.info("🎯 STARTING COMPLETE CUSTOMER CHURN PIPELINE")
+    logger.info("STARTING COMPLETE CUSTOMER CHURN PIPELINE")
     logger.info("=" * 60)
 
     try:
         # --------------------------
-        # 📊 PHASE 1: Data Pipeline
+        # PHASE 1: Data Pipeline
         # --------------------------
-        logger.info("📊 PHASE 1: Running Data Pipeline...")
+        logger.info("PHASE 1: Running Data Pipeline...")
         processed_data, feature_importance = data_pipeline_flow()
-        logger.info("✅ Data Pipeline completed successfully!")
-
-        # --------------------------
-        # 🤖 PHASE 2: ML Pipeline
-        # --------------------------
-        logger.info("🤖 PHASE 2: Running ML Pipeline...")
+        logger.info("Data Pipeline completed successfully!")
+        #PHASE 2: ML Pipeline
+        logger.info("PHASE 2: Running ML Pipeline...")
         ml_results, best_model, predicted_df = ml_pipeline_flow()
-        logger.info("✅ ML Pipeline completed successfully!")
-
-        # --------------------------
-        # 🧹 CLEANUP: Remove model objects before saving
-        # --------------------------
+        logger.info("ML Pipeline completed successfully!")
+        #CLEANUP: Remove model objects before saving
         safe_results = []
         for m in ml_results:
             safe_results.append({k: v for k, v in m.items() if k != "model"})
 
         safe_best_model = {k: v for k, v in best_model.items() if k != "model"}
 
-        # --------------------------
-        # 📈 Save Results
-        # --------------------------
-        logger.info(f"🏆 Best Model: {best_model['model_name']} | F1: {best_model['f1_score']:.4f}")
+        # Save Results
+        logger.info(f"Best Model: {best_model['model_name']} | F1: {best_model['f1_score']:.4f}")
 
         metrics_path = "src/plots/model_metrics_final.json"
         os.makedirs(os.path.dirname(metrics_path), exist_ok=True)
@@ -94,15 +83,15 @@ def complete_pipeline():
                 indent=4
             )
 
-        logger.info(f"📁 Model metrics saved at: {metrics_path}")
-        logger.info(f"💾 Predicted churn file: src/plots/predicted_churn.csv")
+        logger.info(f"Model metrics saved at: {metrics_path}")
+        logger.info(f"Predicted churn file: src/plots/predicted_churn.csv")
         logger.info("=" * 60)
-        logger.info("✅ COMPLETE PIPELINE EXECUTED SUCCESSFULLY!")
+        logger.info("COMPLETE PIPELINE EXECUTED SUCCESSFULLY!")
 
         return {"ml_results": safe_results, "best_model": safe_best_model, "predicted": predicted_df}
 
     except Exception as e:
-        logger.error(f"❌ Pipeline failed due to error: {e}")
+        logger.error(f"Pipeline failed due to error: {e}")
         raise
 
 
