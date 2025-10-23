@@ -1,0 +1,22 @@
+{
+  "flows": {
+    "data": {
+      "message": "Offline mode: Prefect API not queried."
+    }
+  },
+  "deployments": {
+    "data": {
+      "message": "Offline mode: Prefect API not queried."
+    }
+  },
+  "flow_runs": {
+    "data": {
+      "message": "Offline mode: Prefect API not queried."
+    }
+  },
+  "task_runs": {
+    "data": {
+      "message": "Offline mode: Prefect API not queried."
+    }
+  }
+}

@@ -1,0 +1,13 @@
+2025-10-19 14:41:46,887 | INFO | ============================================================
+2025-10-19 14:41:46,887 | INFO | 🌐 STARTING API MONITORING DEMO
+2025-10-19 14:41:46,887 | INFO | 📋 Fetching Flows...
+2025-10-19 14:41:46,887 | WARNING | ⚙️  Offline mode active — skipping actual API call.
+2025-10-19 14:41:46,887 | INFO | 🚀 Fetching Deployments...
+2025-10-19 14:41:46,887 | WARNING | ⚙️  Offline mode active — skipping actual API call.
+2025-10-19 14:41:46,887 | INFO | 📊 Fetching Flow Runs...
+2025-10-19 14:41:46,887 | WARNING | ⚙️  Offline mode active — skipping actual API call.
+2025-10-19 14:41:46,887 | INFO | 🔧 Fetching Task Runs...
+2025-10-19 14:41:46,887 | WARNING | ⚙️  Offline mode active — skipping actual API call.
+2025-10-19 14:41:46,888 | INFO | 📁 API responses saved at plots/api_responses.json
+2025-10-19 14:41:46,888 | INFO | ✅ API MONITORING COMPLETED SUCCESSFULLY!
+2025-10-19 14:41:46,888 | INFO | ============================================================

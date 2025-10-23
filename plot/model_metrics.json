@@ -1,0 +1,23 @@
+[
+    {
+        "model_name": "Logistic Regression",
+        "accuracy": 0.9124467581637482,
+        "precision": 1.0,
+        "recall": 0.005376344086021506,
+        "f1_score": 0.0106951871657754
+    },
+    {
+        "model_name": "Random Forest",
+        "accuracy": 0.9408424041646948,
+        "precision": 0.9552238805970149,
+        "recall": 0.34408602150537637,
+        "f1_score": 0.5059288537549407
+    },
+    {
+        "model_name": "XGBoost",
+        "accuracy": 0.9394226218646474,
+        "precision": 0.9264705882352942,
+        "recall": 0.3387096774193548,
+        "f1_score": 0.49606299212598426
+    }
+]
