@@ -61,8 +61,6 @@ The system exposes key application metrics through a REST API built with FastAPI
 Example Endpoint:
 
 GET /app-info
-
-
 Sample Response:
 
 {
@@ -85,7 +83,5 @@ Future Enhancements
 
 Handle class imbalance using SMOTE or cost-sensitive training.
 Integrate Prometheus + Grafana for live monitoring.
-
 Deploy FastAPI as a standalone microservice.
-
 Add CI/CD pipeline for automated retraining.
