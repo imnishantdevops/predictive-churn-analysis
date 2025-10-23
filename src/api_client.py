@@ -10,7 +10,7 @@ import requests
 import logging
 
 # ------------------- Configuration -------------------
-USE_PREFECT_API = False   # ✅ Set True only if Prefect server is running
+USE_PREFECT_API = False   # Set True only if Prefect server is running
 PREFECT_API_URL = "http://localhost:4200/api"
 os.makedirs("plots", exist_ok=True)
 
@@ -42,13 +42,13 @@ def query_prefect_api(query, variables=None):
         response.raise_for_status()
         return response.json()
     except Exception as e:
-        logger.error(f"❌ API Error: {e}")
+        logger.error(f"API Error: {e}")
         return {"error": str(e)}
 
 # ------------------- API Query Functions -------------------
 def get_flows_api():
     """Get list of all flows."""
-    logger.info("📋 Fetching Flows...")
+    logger.info("Fetching Flows...")
     query = """
     query {
         flows {
@@ -64,7 +64,7 @@ def get_flows_api():
 
 def get_deployments_api():
     """Get list of all deployments."""
-    logger.info("🚀 Fetching Deployments...")
+    logger.info("Fetching Deployments...")
     query = """
     query {
         deployments {
@@ -83,7 +83,7 @@ def get_deployments_api():
 
 def get_flow_runs_api():
     """Get list of flow runs."""
-    logger.info("📊 Fetching Flow Runs...")
+    logger.info("Fetching Flow Runs...")
     query = """
     query {
         flow_runs(limit: 5, order_by: {start_time: DESC}) {
@@ -100,7 +100,7 @@ def get_flow_runs_api():
 
 def get_task_runs_api():
     """Get list of task runs."""
-    logger.info("🔧 Fetching Task Runs...")
+    logger.info("Fetching Task Runs...")
     query = """
     query {
         task_runs(limit: 5, order_by: {start_time: DESC}) {
@@ -119,7 +119,7 @@ def get_task_runs_api():
 def run_api_monitoring():
     """Run all API checks and save results."""
     logger.info("=" * 60)
-    logger.info("🌐 STARTING API MONITORING DEMO")
+    logger.info("STARTING API MONITORING DEMO")
 
     results = {
         "flows": get_flows_api(),
@@ -132,8 +132,8 @@ def run_api_monitoring():
     with open(output_path, "w") as f:
         json.dump(results, f, indent=2, default=str)
 
-    logger.info(f"📁 API responses saved at {output_path}")
-    logger.info("✅ API MONITORING COMPLETED SUCCESSFULLY!")
+    logger.info(f"API responses saved at {output_path}")
+    logger.info("API MONITORING COMPLETED SUCCESSFULLY!")
     logger.info("=" * 60)
     return results
 
